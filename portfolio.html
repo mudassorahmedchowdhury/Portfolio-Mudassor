@@ -54,7 +54,7 @@
   "sameAs": [
     "https://www.linkedin.com/in/mudassor/"
   ],
-  "knowsAbout": ["Manual Testing","API Testing","Web Application Testing","Regression Testing","Bug Reporting","STLC"]
+  "knowsAbout": ["Manual Testing","API Testing","Web Application Testing","Regression Testing","Bug Reporting","STLC","Selenium","Playwright","Multi-Tenancy Testing","RBAC / ACL Testing","AWS S3 & Athena","Apache Airflow"]
 }
 </script>
 
@@ -307,14 +307,43 @@
   .cert h4{font-family:var(--font-display);font-size:1.02rem}
   .cert .meta{font-size:.82rem;color:var(--muted);font-family:var(--font-mono);margin:.2rem 0 .5rem}
   .cert a.verify{font-size:.8rem;color:var(--brand-2);font-family:var(--font-mono)}
+  .cert-thumb{display:block;margin:0 auto;max-width:100%;max-height:320px;width:auto;height:auto;border-radius:12px;border:1px solid var(--border);background:#fff;transition:border-color .25s}
+  .cert-thumb:hover{border-color:var(--brand-2)}
 
   /* testimonials */
   .quote{font-size:1rem;color:var(--text);margin:0 0 1.2rem}
   .stars{color:#f5b301;font-size:.9rem;letter-spacing:2px;margin-bottom:.8rem}
-  .who{display:flex;align-items:center;gap:.8rem}
+  .who{display:grid;grid-template-columns:44px minmax(0,1fr) auto;align-items:start;gap:.7rem .7rem}
   .who .av{width:44px;height:44px;border-radius:50%;background:var(--grad);display:grid;place-items:center;font-weight:700;color:#03110b;font-family:var(--font-display)}
+  .who-avatar{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid var(--border);display:block}
+  .who-text{min-width:0}
   .who .name{font-weight:600;font-size:.95rem}
-  .who .co{font-size:.8rem;color:var(--muted)}
+  .who .co{font-size:.8rem;color:var(--muted);overflow-wrap:break-word}
+
+  /* contact info popover */
+  .contact-info-wrap{position:relative}
+  .contact-btn{
+    font-family:var(--font-mono);font-size:.7rem;padding:.4rem .7rem;border-radius:999px;
+    border:1px solid var(--border);background:var(--panel);color:var(--brand-2);cursor:pointer;
+    white-space:nowrap;transition:all .2s var(--ease)
+  }
+  .contact-btn:hover,.contact-btn:focus-visible{border-color:var(--brand-2);color:var(--text);background:color-mix(in srgb,var(--brand-2) 14%,var(--panel))}
+  .contact-popup{
+    position:absolute;top:calc(100% + 12px);right:0;z-index:30;min-width:240px;
+    background:var(--panel-solid);border:1px solid var(--border);border-radius:14px;
+    padding:14px 16px;box-shadow:var(--shadow);
+    opacity:0;pointer-events:none;transform:translateY(-6px);
+    transition:opacity .22s var(--ease),transform .22s var(--ease)
+  }
+  .contact-popup::before{content:"";position:absolute;bottom:100%;right:20px;border:6px solid transparent;border-bottom-color:var(--border)}
+  .contact-popup::after{content:"";position:absolute;bottom:100%;right:20px;border:6px solid transparent;border-bottom-color:var(--panel-solid);margin-bottom:-1px}
+  .contact-info-wrap:hover .contact-popup,.contact-info-wrap:focus-within .contact-popup{opacity:1;pointer-events:auto;transform:translateY(0)}
+  .contact-popup .ci-title{font-family:var(--font-mono);font-size:.7rem;color:var(--muted);margin-bottom:.6rem;text-transform:uppercase;letter-spacing:.04em}
+  .contact-popup .ci-row{display:flex;gap:.55rem;align-items:center;font-size:.82rem;padding:.32rem 0;color:var(--text)}
+  .contact-popup .ci-row svg{color:var(--brand-1);flex-shrink:0}
+  .contact-popup .ci-row a{color:var(--text);word-break:break-all;transition:color .2s}
+  .contact-popup .ci-row a:hover{color:var(--brand-2)}
+  @media(max-width:480px){.contact-popup{right:auto;left:0}.contact-popup::before,.contact-popup::after{right:auto;left:20px}}
 
   /* FAQ */
   details.faq{border:1px solid var(--border);border-radius:var(--radius);background:var(--panel);margin-bottom:12px;overflow:hidden;transition:border-color .25s}
@@ -416,6 +445,7 @@
   <a href="#experience" class="sheet-link">Experience</a>
   <a href="#certifications" class="sheet-link">Certifications</a>
   <a href="#publications" class="sheet-link">Publications</a>
+  <a href="#community" class="sheet-link">Community</a>
   <a href="#contact" class="sheet-link">Contact</a>
   <a href="#contact" class="btn btn-primary sheet-link">Hire Me</a>
 </aside>
@@ -432,7 +462,7 @@
         <span class="status-pill"><span class="live"></span>Available for freelance QA work</span>
         <h1>Ship with <span class="grad-text">confidence.</span><br>I break it so users don't.</h1>
         <div class="roles"><span id="typed"></span><span class="cursor">&nbsp;</span></div>
-        <p class="lead">I'm Mudassor Ahmed Chowdhury — an SQA freelancer helping teams catch bugs early through thorough manual QA, API testing, and web application testing. Clear reports, reliable coverage, real results.</p>
+        <p class="lead">I'm Mudassor Ahmed Chowdhury — a detail-oriented SQA Engineer with hands-on experience across manual, API, and automation testing. Currently testing a multi-tenant security SaaS platform (ThreatIDR & Risk Sensor), with a track record spanning Diagnostic Management, POS, HRMS, Loan Management, and EdTech products.</p>
         <div class="hero-cta">
           <a href="#contact" class="btn btn-primary">Hire Me →</a>
           <a href="#" class="btn btn-ghost" download><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 3v12M7 10l5 5 5-5M5 21h14"/></svg>Download Resume</a>
@@ -453,10 +483,10 @@
 
     <!-- [EDIT:STATS] achievement counters -->
     <div class="stats reveal">
-      <div class="stat"><div class="num" data-count="500" data-suffix="+">0</div><div class="lbl">Bugs Reported</div></div>
-      <div class="stat"><div class="num" data-count="30" data-suffix="+">0</div><div class="lbl">Projects Tested</div></div>
+      <div class="stat"><div class="num" data-count="6" data-suffix="+">0</div><div class="lbl">Business Domains Tested</div></div>
+      <div class="stat"><div class="num" data-count="3" data-suffix="">0</div><div class="lbl">Companies Worked With</div></div>
       <div class="stat"><div class="num" data-count="3" data-suffix="+">0</div><div class="lbl">Years in QA</div></div>
-      <div class="stat"><div class="num" data-count="100" data-suffix="%">0</div><div class="lbl">Client Satisfaction</div></div>
+      <div class="stat"><div class="num" data-count="1" data-suffix="">0</div><div class="lbl">ISTQB Certified</div></div>
     </div>
   </div>
 </section>
@@ -475,6 +505,7 @@
           <p style="font-family:var(--font-mono);font-size:.85rem;color:var(--muted)">// testing philosophy</p>
           <p style="margin-top:.5rem;font-weight:500">"A test that never fails isn't proving quality — it's just checking a box. I test to learn where things break, not to confirm they work."</p>
         </div>
+        <p style="margin-top:1.2rem;color:var(--muted);font-size:.9rem"><b style="color:var(--text)">Education:</b> B.Sc. in Computer Science &amp; Engineering — Daffodil International University (CGPA 3.18, 2023)</p>
       </div>
       <div class="reveal">
         <div class="card">
@@ -483,7 +514,8 @@
             <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="color:var(--brand-1)">✓</span><div><b>Thorough coverage</b><br><span style="color:var(--muted);font-size:.9rem">Functional, regression, UI, cross-browser & responsive.</span></div></div>
             <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="color:var(--brand-1)">✓</span><div><b>Clear bug reports</b><br><span style="color:var(--muted);font-size:.9rem">Steps, expected vs actual, severity, evidence — every time.</span></div></div>
             <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="color:var(--brand-1)">✓</span><div><b>API confidence</b><br><span style="color:var(--muted);font-size:.9rem">Postman collections, status codes, schema & edge cases.</span></div></div>
-            <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="color:var(--brand-1)">✓</span><div><b>Agile-ready</b><br><span style="color:var(--muted);font-size:.9rem">Jira, ClickUp, Trello — plugged into your workflow.</span></div></div>
+            <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="color:var(--brand-1)">✓</span><div><b>Security &amp; multi-tenant testing</b><br><span style="color:var(--muted);font-size:.9rem">RBAC, ACL, tenant-level data isolation, and threat-detection pipelines.</span></div></div>
+            <div style="display:flex;gap:.8rem;align-items:flex-start"><span style="color:var(--brand-1)">✓</span><div><b>Agile-ready</b><br><span style="color:var(--muted);font-size:.9rem">Jira — plugged into sprint planning &amp; SQA activities.</span></div></div>
           </div>
         </div>
       </div>
@@ -504,22 +536,25 @@
         <div class="sg-title">▸ testing_types</div>
         <div class="badges">
           <span class="badge">Manual Testing</span><span class="badge">Functional</span><span class="badge">Regression</span>
-          <span class="badge">Smoke</span><span class="badge">Sanity</span><span class="badge">UI Testing</span>
-          <span class="badge">Cross-Browser</span><span class="badge">Responsive</span><span class="badge">API Testing</span>
+          <span class="badge">Smoke</span><span class="badge">Sanity</span><span class="badge">Integration</span>
+          <span class="badge">UI/UX Testing</span><span class="badge">Cross-Browser</span><span class="badge">Cross-Platform</span>
+          <span class="badge">Multi-Tenancy Testing</span><span class="badge">ACL / RBAC Testing</span><span class="badge">Database Testing</span>
         </div>
       </div>
       <div class="card reveal">
-        <div class="sg-title">▸ tools</div>
+        <div class="sg-title">▸ automation_&amp;_api</div>
         <div class="badges">
-          <span class="badge">Postman</span><span class="badge">Jira</span><span class="badge">ClickUp</span>
-          <span class="badge">Trello</span><span class="badge">Git</span><span class="badge">GitHub</span>
+          <span class="badge">Postman</span><span class="badge">Selenium</span><span class="badge">Playwright (JS)</span>
+          <span class="badge">Java</span><span class="badge">TestNG</span><span class="badge">Data-Driven Testing</span>
+          <span class="badge">API Testing</span>
         </div>
       </div>
       <div class="card reveal">
-        <div class="sg-title">▸ process</div>
+        <div class="sg-title">▸ tools_&amp;_platforms</div>
         <div class="badges">
-          <span class="badge">Agile</span><span class="badge">Scrum</span><span class="badge">Test Case Writing</span>
-          <span class="badge">Bug Reporting</span><span class="badge">SDLC</span><span class="badge">STLC</span>
+          <span class="badge">Jira</span><span class="badge">Git</span><span class="badge">GitHub</span>
+          <span class="badge">Hyper-V</span><span class="badge">MobaXterm</span><span class="badge">Apache Airflow</span>
+          <span class="badge">AWS S3</span><span class="badge">AWS Athena</span><span class="badge">SDLC</span><span class="badge">STLC</span>
         </div>
       </div>
     </div>
@@ -572,6 +607,18 @@
         <p class="desc">Set up your QA process from scratch — test strategy, tooling, and reporting standards.</p>
         <a href="#contact" class="learn">Request this →</a>
       </div>
+      <div class="card reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 3h6l1 4h4v4l-4 1v6l-4 1-4-1v-6l-4-1V7h4z"/></svg></div>
+        <h3>Automation Testing</h3>
+        <p class="desc">Hybrid E2E and regression automation with Java, Selenium, Playwright and TestNG for data-driven suites.</p>
+        <a href="#contact" class="learn">Request this →</a>
+      </div>
+      <div class="card reveal">
+        <div class="svc-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="4" y="11" width="16" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+        <h3>Security &amp; Multi-Tenant QA</h3>
+        <p class="desc">RBAC, ACL and tenant-isolation validation, plus threat-detection pipeline and AWS/Airflow data-flow testing.</p>
+        <a href="#contact" class="learn">Request this →</a>
+      </div>
     </div>
   </div>
 </section>
@@ -593,76 +640,76 @@
 
     <!-- [EDIT:PROJECTS] duplicate a .card block to add more. data-cat="solo" or "contrib" -->
     <div class="grid cols-3" id="proj-grid">
-      <div class="card reveal proj" data-cat="solo">
-        <div class="proj-thumb"><span class="tag">Solo QA</span>E-Commerce Web App</div>
-        <h3>E-Commerce Checkout QA</h3>
-        <p class="desc">Full manual test cycle for a multi-step checkout, from cart to payment confirmation.</p>
-        <div class="tech-row"><span>Web</span><span>Functional</span><span>Cross-Browser</span><span>Jira</span></div>
+      <div class="card reveal proj" data-cat="contrib">
+        <div class="proj-thumb"><span class="tag">Pipeline Co., Ltd</span>Security SaaS Platform</div>
+        <h3>ThreatIDR &amp; Risk Sensor — SaaS QA</h3>
+        <p class="desc">Manual, API and automation testing for a multi-tenant threat-detection SaaS platform.</p>
+        <div class="tech-row"><span>RBAC</span><span>Tenant Isolation</span><span>AWS S3/Athena</span><span>Airflow</span></div>
         <div class="proj-meta">
-          <div><b>SCOPE</b>Functional, UI, regression across 4 browsers</div>
-          <div><b>RESULT</b>42 bugs found; 0 critical issues at launch</div>
+          <div><b>SCOPE</b>Security workflows, RBAC, tenant-level data isolation</div>
+          <div><b>RESULT</b>End-to-end validation of log ingestion → alert generation</div>
         </div>
-        <div class="proj-links"><a href="#">View Details</a><a href="#">Report Sample</a></div>
+        <div class="proj-links"><a href="#experience">View Details</a></div>
       </div>
 
       <div class="card reveal proj" data-cat="contrib">
-        <div class="proj-thumb"><span class="tag">Contribution</span>SaaS Dashboard</div>
-        <h3>SaaS Dashboard — API QA</h3>
-        <p class="desc">Contributed API test coverage for a team building an analytics dashboard.</p>
-        <div class="tech-row"><span>API</span><span>Postman</span><span>Agile</span><span>ClickUp</span></div>
+        <div class="proj-thumb"><span class="tag">Softzino Technologies</span>Multi-Domain SaaS</div>
+        <h3>Diagnostic, POS, HRMS &amp; Loan Management QA</h3>
+        <p class="desc">QA across Diagnostic Management, Petty Cash, Inventory &amp; POS, Loan Management, HRMS and Retail Solutions.</p>
+        <div class="tech-row"><span>Multi-Tenancy</span><span>ACL</span><span>Web &amp; Mobile (APK)</span><span>Postman</span></div>
         <div class="proj-meta">
-          <div><b>SCOPE</b>REST endpoint validation, schema & error cases</div>
-          <div><b>RESULT</b>Postman collection with 60+ automated checks</div>
+          <div><b>SCOPE</b>UI, sanity, smoke, regression, integration &amp; DB testing</div>
+          <div><b>RESULT</b>Verified pagination, lazy loading &amp; API data accuracy</div>
         </div>
-        <div class="proj-links"><a href="#">View Details</a><a href="#">GitHub</a></div>
+        <div class="proj-links"><a href="#experience">View Details</a></div>
       </div>
 
       <div class="card reveal proj" data-cat="solo">
-        <div class="proj-thumb"><span class="tag">Solo QA</span>Mobile App</div>
-        <h3>Fitness App — Mobile QA</h3>
-        <p class="desc">Sole tester for an Android fitness app across multiple devices and OS versions.</p>
-        <div class="tech-row"><span>Mobile</span><span>Manual</span><span>Regression</span><span>Trello</span></div>
+        <div class="proj-thumb"><span class="tag">Softzino Technologies</span>Automation</div>
+        <h3>Hybrid Selenium E2E &amp; Regression Suite</h3>
+        <p class="desc">Built a hybrid automation script covering end-to-end flows and regression checks.</p>
+        <div class="tech-row"><span>Java</span><span>Selenium</span><span>TestNG</span><span>Data-Driven</span></div>
         <div class="proj-meta">
-          <div><b>SCOPE</b>Real-device functional & usability testing</div>
-          <div><b>RESULT</b>Crash rate reduced significantly before release</div>
+          <div><b>SCOPE</b>E2E &amp; regression automation for core workflows</div>
+          <div><b>RESULT</b>Reduced manual regression effort each release cycle</div>
         </div>
-        <div class="proj-links"><a href="#">View Details</a></div>
+        <div class="proj-links"><a href="#experience">View Details</a></div>
       </div>
 
-      <div class="card reveal proj" data-cat="contrib">
-        <div class="proj-thumb"><span class="tag">Contribution</span>Data Pipeline</div>
+      <div class="card reveal proj" data-cat="solo">
+        <div class="proj-thumb"><span class="tag">Publication</span>Data Pipeline</div>
         <h3>Apache Airflow — Testing Guide</h3>
         <p class="desc">Authored a practical SQA testing guide for Apache Airflow workflows (published resource).</p>
         <div class="tech-row"><span>Documentation</span><span>Airflow</span><span>STLC</span></div>
         <div class="proj-meta">
-          <div><b>SCOPE</b>Test strategy & QA guide for data pipelines</div>
+          <div><b>SCOPE</b>Test strategy &amp; QA guide for data pipelines</div>
           <div><b>RESULT</b>Shared publicly; referenced by QA peers</div>
         </div>
         <div class="proj-links"><a href="#publications">View Publication</a></div>
       </div>
 
-      <div class="card reveal proj" data-cat="solo">
-        <div class="proj-thumb"><span class="tag">Solo QA</span>Landing / Marketing Site</div>
-        <h3>Marketing Site — Responsive QA</h3>
-        <p class="desc">Responsive and cross-browser testing for a marketing site launch.</p>
-        <div class="tech-row"><span>Responsive</span><span>UI</span><span>Cross-Browser</span></div>
+      <div class="card reveal proj" data-cat="contrib">
+        <div class="proj-thumb"><span class="tag">Creative Soft Technology</span>EdTech</div>
+        <h3>Konnect.edu.bd — UI/UX &amp; API QA</h3>
+        <p class="desc">UI/UX validation and comprehensive manual testing for an education technology platform.</p>
+        <div class="tech-row"><span>UI/UX</span><span>Manual Testing</span><span>Postman</span></div>
         <div class="proj-meta">
-          <div><b>SCOPE</b>Breakpoints 320px→ultrawide, 5 browsers</div>
-          <div><b>RESULT</b>Pixel-clean launch on all target devices</div>
+          <div><b>SCOPE</b>API endpoint testing &amp; cross-platform design consistency</div>
+          <div><b>RESULT</b>Test planning, execution &amp; reporting to stakeholders</div>
         </div>
-        <div class="proj-links"><a href="#">View Details</a></div>
+        <div class="proj-links"><a href="#experience">View Details</a></div>
       </div>
 
-      <div class="card reveal proj" data-cat="contrib">
-        <div class="proj-thumb"><span class="tag">Contribution</span>Fintech Web App</div>
-        <h3>Fintech Web App — Regression</h3>
-        <p class="desc">Joined a QA team to own the regression suite across biweekly releases.</p>
-        <div class="tech-row"><span>Regression</span><span>Jira</span><span>Scrum</span></div>
+      <div class="card reveal proj" data-cat="solo">
+        <div class="proj-thumb"><span class="tag">DIU Micro-Credentials</span>Training</div>
+        <h3>SQA Training Program — Mentor</h3>
+        <p class="desc">Conducted a 10-week (38-hour) SQA training program covering SDLC, STLC and API testing.</p>
+        <div class="tech-row"><span>SDLC</span><span>STLC</span><span>Postman</span><span>Jira</span></div>
         <div class="proj-meta">
-          <div><b>SCOPE</b>Regression coverage for every sprint release</div>
-          <div><b>RESULT</b>Caught 3 release-blocking regressions</div>
+          <div><b>SCOPE</b>Test case design, bug lifecycle, Jira test management</div>
+          <div><b>RESULT</b>Mentored learners through hands-on QA projects</div>
         </div>
-        <div class="proj-links"><a href="#">View Details</a></div>
+        <div class="proj-links"><a href="#experience">View Details</a></div>
       </div>
     </div>
   </div>
@@ -701,22 +748,28 @@
         <!-- [EDIT:EXPERIENCE] -->
         <div class="timeline">
           <div class="tl-item">
-            <div class="tl-date">2024 — Present</div>
-            <h3>Freelance SQA Engineer</h3>
-            <div class="org">Self-employed · Fiverr &amp; LinkedIn</div>
-            <p>Providing manual QA, API and web application testing to clients worldwide. Delivering clear bug reports and reliable test coverage.</p>
+            <div class="tl-date">17th May 2026 — Present</div>
+            <h3>SQA Engineer</h3>
+            <div class="org">Pipeline Co., Ltd · Dhaka, Bangladesh</div>
+            <p>Manual, API and automation testing for a multi-tenant SaaS platform (ThreatIDR &amp; Risk Sensor). Validated RBAC, tenant-level data isolation and risk detection accuracy. Tested AWS-based data pipelines (S3, Athena) and Apache Airflow workflows, and configured Hyper-V/MobaXterm network bridge environments for security testing.</p>
           </div>
           <div class="tl-item">
-            <div class="tl-date">2023 — 2024</div>
-            <h3>QA Engineer (Contract)</h3>
-            <div class="org">Add company / project name</div>
-            <p>Add a short description of your responsibilities and impact here.</p>
+            <div class="tl-date">1st Sep 2025 — 30th Nov 2025</div>
+            <h3>SQA Trainer</h3>
+            <div class="org">DIU Micro-Credentials Academy · Dhaka, Bangladesh</div>
+            <p>Conducted a 10-week (38-hour) online SQA training program covering SDLC, STLC, Test Case Design, Bug Lifecycle, API Testing (Postman) and Jira Test Management. Mentored learners through hands-on projects and assessed progress.</p>
           </div>
           <div class="tl-item">
-            <div class="tl-date">2022 — 2023</div>
-            <h3>Junior QA / Trainee</h3>
-            <div class="org">Add company / training program</div>
-            <p>Add where you started and what you learned about the QA fundamentals.</p>
+            <div class="tl-date">2nd Oct 2023 — 15th May 2026</div>
+            <h3>Associate – SQA Engineer</h3>
+            <div class="org">Softzino Technologies · Dhaka, Bangladesh</div>
+            <p>Tested Diagnostic Management, Petty Cash, Inventory &amp; POS, Loan Management, HRMS and Retail Solutions. Performed multi-tenancy and ACL testing, UI/sanity/smoke/regression/integration and manual database testing across Web and Mobile (APK). Validated APIs via Postman and developed a hybrid Selenium E2E &amp; regression automation script. Mentored interns and joined sprint planning.</p>
+          </div>
+          <div class="tl-item">
+            <div class="tl-date">1st Dec 2022 — 30th Jul 2023</div>
+            <h3>SQA – Project Base</h3>
+            <div class="org">Creative Soft Technology Ltd. · Dhaka, Bangladesh</div>
+            <p>UI/UX validation and manual testing for Konnect.edu.bd (EdTech). Manually tested API functionality and endpoints via Postman, and led test planning, execution and reporting to stakeholders.</p>
           </div>
         </div>
       </div>
@@ -730,32 +783,28 @@
     <div class="reveal center" style="max-width:640px">
       <span class="eyebrow">certifications.verified</span>
       <h2 class="section-title center">Certifications</h2>
-      <p class="section-sub center">Credentials that back up the practice. Replace these with your real certificates.</p>
+      <p class="section-sub center">Credentials that back up the practice — verified and on file.</p>
     </div>
     <!-- [EDIT:CERTS] -->
-    <div class="grid cols-3">
-      <div class="card reveal cert">
-        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div>
-          <h4>Software Testing Foundation</h4>
-          <div class="meta">Issuer · 2024</div>
-          <a class="verify" href="#">Verify credential ↗</a>
+    <div class="grid cols-2">
+      <div class="card reveal cert" style="flex-direction:column;align-items:stretch;gap:0">
+        <a href="images/certifications/istqb-ctfl-4.jpg" target="_blank" rel="noopener" style="display:block;margin-bottom:1rem">
+          <img src="images/certifications/istqb-ctfl-4.jpg" alt="ISTQB Certified Tester, Foundation Level v4.0 certificate" class="cert-thumb">
+        </a>
+        <div style="display:flex;gap:16px;align-items:flex-start">
+          <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+          <div>
+            <h4>ISTQB® Certified Tester Foundation Level 4.0</h4>
+            <div class="meta">Certificate No. 25-CTFL 4-259052-12 · Passed 16/03/2025</div>
+            <a class="verify" href="https://zertdb.isqi.org/en/certification/verification/t/F9_fxx-c%24bv133pR3Hh3" target="_blank" rel="noopener">Verify credential ↗</a>
+          </div>
         </div>
       </div>
       <div class="card reveal cert">
-        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></svg></div>
         <div>
-          <h4>API Testing (Postman)</h4>
-          <div class="meta">Issuer · 2024</div>
-          <a class="verify" href="#">Verify credential ↗</a>
-        </div>
-      </div>
-      <div class="card reveal cert">
-        <div class="ico"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2l7 4v6c0 5-3.5 8-7 10-3.5-2-7-5-7-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div>
-        <div>
-          <h4>Agile / Scrum Fundamentals</h4>
-          <div class="meta">Issuer · 2023</div>
-          <a class="verify" href="#">Verify credential ↗</a>
+          <h4>Add your next certification</h4>
+          <div class="meta">Coming soon</div>
         </div>
       </div>
     </div>
@@ -773,16 +822,48 @@
     <!-- [EDIT:PUBS] -->
     <div class="grid cols-2">
       <div class="card reveal">
+        <div class="sg-title">▸ research_publication</div>
+        <h3>Detecting Vulnerabilities in Websites Using Multi-Scale Approaches</h3>
+        <p class="desc" style="margin:.6rem 0">Designed and implemented an approach for identifying malicious content and vulnerabilities in websites using multi-scale techniques. Published in IJECE.</p>
+        <div class="tech-row"><span>Security</span><span>Vulnerability Detection</span><span>Research</span></div>
+        <div style="display:flex;gap:1.2rem;flex-wrap:wrap;margin-top:.9rem">
+          <a href="https://ijece.iaescore.com/index.php/IJECE/article/view/34289" target="_blank" rel="noopener" class="learn">View publication →</a>
+          <a href="documents/detecting-vulnerabilities-multi-scale-approaches.pdf" target="_blank" rel="noopener" class="learn">View PDF →</a>
+          <a href="documents/detecting-vulnerabilities-multi-scale-approaches.pdf" download class="learn">Download PDF ↓</a>
+        </div>
+      </div>
+      <div class="card reveal">
         <div class="sg-title">▸ testing_guide</div>
         <h3>Apache Airflow SQA Testing Guide</h3>
         <p class="desc" style="margin:.6rem 0">A practical guide to quality assurance for Apache Airflow data pipelines — test strategy, cases, and reporting. Published as a document on LinkedIn.</p>
         <div class="tech-row"><span>Airflow</span><span>STLC</span><span>PDF / DOCX</span></div>
         <a href="https://www.linkedin.com/in/mudassor/" target="_blank" rel="noopener" class="learn">Read on LinkedIn →</a>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMMUNITY ENGAGEMENTS ===================== -->
+<section id="community">
+  <div class="wrap">
+    <div class="reveal center" style="max-width:640px">
+      <span class="eyebrow">community.engagements</span>
+      <h2 class="section-title center">Community Engagements</h2>
+      <p class="section-sub center">Speaking, mentoring and knowledge-sharing beyond the day job.</p>
+    </div>
+    <!-- [EDIT:COMMUNITY] duplicate a .card block for every new talk / meet-up / panel. Update the LinkedIn post link when you have it. -->
+    <div class="grid cols-3">
       <div class="card reveal">
-        <div class="sg-title">▸ add_your_next</div>
-        <h3>Your next article or guide</h3>
-        <p class="desc" style="margin:.6rem 0">Add more publications, LinkedIn document posts, or QA write-ups here to build authority in your niche.</p>
+        <div class="proj-thumb"><span class="tag">Guest Speaker</span>QA Meet-Up</div>
+        <h3>Riseup Labs × QABrains</h3>
+        <p class="desc" style="margin:.6rem 0">Topic: Locator Optimization in Automation.</p>
+        <div class="tech-row"><span>Automation</span><span>QA</span><span>Public Speaking</span></div>
+        <a href="https://www.linkedin.com/in/mudassor/" target="_blank" rel="noopener" class="learn">View LinkedIn Post →</a>
+      </div>
+      <div class="card reveal">
+        <div class="proj-thumb"><span class="tag">Coming soon</span>Next Engagement</div>
+        <h3>Add your next talk or event</h3>
+        <p class="desc" style="margin:.6rem 0">Duplicate this card for every meet-up, webinar, or panel you speak at.</p>
         <div class="tech-row"><span>Coming soon</span></div>
         <a href="#contact" class="learn">Suggest a topic →</a>
       </div>
@@ -794,27 +875,93 @@
 <section id="testimonials">
   <div class="wrap">
     <div class="reveal center" style="max-width:640px">
-      <span class="eyebrow">testimonials // sample — replace with real reviews</span>
-      <h2 class="section-title center">What clients say</h2>
-      <p class="section-sub center">Swap these placeholders for real reviews from Fiverr, LinkedIn, or direct clients.</p>
+      <span class="eyebrow">recommendations.verified</span>
+      <h2 class="section-title center">Recommendations</h2>
+      <p class="section-sub center">Real recommendations written by managers, teammates and mentors on LinkedIn — verifiable, not paraphrased.</p>
     </div>
-    <!-- [EDIT:TESTIMONIALS] These are placeholders — replace with genuine client feedback. -->
+    <!-- [EDIT:TESTIMONIALS] Sourced from LinkedIn recommendations. -->
     <div class="grid cols-3">
       <div class="card reveal">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Detailed, reliable and fast. The bug reports were so clear our devs fixed everything in one pass."</p>
-        <div class="who"><div class="av">A</div><div><div class="name">Client Name</div><div class="co">Company · Fiverr</div></div></div>
+        <p class="quote">"Mudassor is a highly skilled and dependable QA engineer. He consistently identifies edge cases, uncovers hidden issues, and doesn't just wait for problems to arise — he anticipates them."</p>
+        <div class="who">
+          <img class="who-avatar" src="images/testimonials/anamul-hasan.png" alt="Anamul Hasan">
+          <div class="who-text"><div class="name">Anamul Hasan</div><div class="co">Manager, ICT @ Padakhep</div></div>
+          <div class="contact-info-wrap" tabindex="0">
+            <button type="button" class="contact-btn">Contact Info</button>
+            <div class="contact-popup">
+              <div class="ci-title">Contact — Anamul Hasan</div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:ahfahad118@gmail.com">ahfahad118@gmail.com</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg><a href="https://linkedin.com/in/devanamul" target="_blank" rel="noopener">linkedin.com/in/devanamul</a></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card reveal">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Caught issues we completely missed before launch. Communication was excellent throughout."</p>
-        <div class="who"><div class="av">B</div><div><div class="name">Client Name</div><div class="co">Startup · LinkedIn</div></div></div>
+        <p class="quote">"His adaptability skill is really good. Also, he is a very quick learner — I think anyone who gets a chance to work with him will enjoy it."</p>
+        <div class="who">
+          <img class="who-avatar" src="images/testimonials/nasim-rana.jpg" alt="Nasim Rana">
+          <div class="who-text"><div class="name">Nasim Rana</div><div class="co">Independent Contractor @ Apple</div></div>
+          <div class="contact-info-wrap" tabindex="0">
+            <button type="button" class="contact-btn">Contact Info</button>
+            <div class="contact-popup">
+              <div class="ci-title">Contact — Nasim Rana</div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:nasimrana69@gmail.com">nasimrana69@gmail.com</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg><a href="https://linkedin.com/in/nasim1725" target="_blank" rel="noopener">linkedin.com/in/nasim1725</a></div>
+            </div>
+          </div>
+        </div>
       </div>
       <div class="card reveal">
-        <div class="stars">★★★★★</div>
-        <p class="quote">"Professional and thorough API testing. Delivered a Postman collection we still use today."</p>
-        <div class="who"><div class="av">C</div><div><div class="name">Client Name</div><div class="co">Agency</div></div></div>
+        <p class="quote">"He is a very polite guy with excellent knowledge. I can recommend him without any doubt — he knows how to research new things and find the best solution."</p>
+        <div class="who">
+          <img class="who-avatar" src="images/testimonials/faysal-khan.png" alt="Faysal Khan">
+          <div class="who-text"><div class="name">Faysal Khan</div><div class="co">Sr. UX-UI Engineer @ Softzino</div></div>
+          <div class="contact-info-wrap" tabindex="0">
+            <button type="button" class="contact-btn">Contact Info</button>
+            <div class="contact-popup">
+              <div class="ci-title">Contact — Faysal Khan</div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:faysal.fpz@gmail.com">faysal.fpz@gmail.com</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+8801737527348">+880 1737 527348</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg><a href="https://linkedin.com/in/iamfaysal" target="_blank" rel="noopener">linkedin.com/in/iamfaysal</a></div>
+            </div>
+          </div>
+        </div>
       </div>
+      <div class="card reveal">
+        <p class="quote">"I found him to be hard-working, bright, and a skilled communicator in the field of QA. What makes him stand out is his willingness to help others."</p>
+        <div class="who">
+          <img class="who-avatar" src="images/testimonials/ruhul-amin.jpg" alt="Ruhul Amin Khan">
+          <div class="who-text"><div class="name">Ruhul Amin Khan</div><div class="co">Senior Frontend Engineer, IC @ Apple</div></div>
+          <div class="contact-info-wrap" tabindex="0">
+            <button type="button" class="contact-btn">Contact Info</button>
+            <div class="contact-popup">
+              <div class="ci-title">Contact — Ruhul Amin Khan</div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:shapon.ite@gmail.com">shapon.ite@gmail.com</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+8801722117278">+880 1722 117278</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg><a href="https://linkedin.com/in/ruhulaminkhan" target="_blank" rel="noopener">linkedin.com/in/ruhulaminkhan</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="card reveal">
+        <p class="quote">"His analytical skills and ability to solve complex security challenges impressed me greatly. I highly recommend him for any cybersecurity role."</p>
+        <div class="who">
+          <img class="who-avatar" src="images/testimonials/mushfiqur-rahman.jpg" alt="Mushfiqur Rahman">
+          <div class="who-text"><div class="name">Mushfiqur Rahman</div><div class="co">Assistant Professor, Daffodil International University</div></div>
+          <div class="contact-info-wrap" tabindex="0">
+            <button type="button" class="contact-btn">Contact Info</button>
+            <div class="contact-popup">
+              <div class="ci-title">Contact — Mushfiqur Rahman</div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg><a href="mailto:mushfiqur.real@gmail.com">mushfiqur.real@gmail.com</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg><a href="tel:+8801714218217">+880 1714 218217</a></div>
+              <div class="ci-row"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg><a href="https://linkedin.com/in/mushfiqur-bd" target="_blank" rel="noopener">linkedin.com/in/mushfiqur-bd</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal center" style="margin-top:2rem">
+      <p style="color:var(--muted);font-size:.92rem">Want to verify these recommendations? <a href="https://www.linkedin.com/in/mudassor/details/recommendations/" target="_blank" rel="noopener" style="color:var(--brand-1);font-weight:600">Click here to verify ↗</a></p>
     </div>
   </div>
 </section>
@@ -865,9 +1012,11 @@
       <div class="contact-side reveal">
         <div class="card">
           <!-- [EDIT:LINKS] -->
-          <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></div><div><div class="lbl">email</div><div class="val">your.email@example.com</div></div></div>
+          <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 6h16v12H4z"/><path d="M4 7l8 6 8-6"/></svg></div><div><div class="lbl">email</div><a class="val" href="mailto:Amudassor@gmail.com">Amudassor@gmail.com</a></div></div>
+          <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.362 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.338 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><div><div class="lbl">phone</div><a class="val" href="tel:+8801311773124">+880 1311 773124</a></div></div>
+          <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 10c0 6-9 12-9 12s-9-6-9-12a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></div><div><div class="lbl">location</div><div class="val">Uttara, Dhaka, Bangladesh</div></div></div>
           <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M8 2v4M16 2v4"/></svg></div><div><div class="lbl">linkedin</div><a class="val" href="https://www.linkedin.com/in/mudassor/" target="_blank" rel="noopener">in/mudassor</a></div></div>
-          <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M8 12h8M12 8v8"/></svg></div><div><div class="lbl">fiverr</div><a class="val" href="#" target="_blank" rel="noopener">Add your Fiverr link</a></div></div>
+          <div class="item"><div class="ico"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></div><div><div class="lbl">github</div><a class="val" href="https://github.com/Mudassor-Ahmed-Chowdhury" target="_blank" rel="noopener">Mudassor-Ahmed-Chowdhury</a></div></div>
         </div>
         <div class="card" style="margin-top:20px;background:var(--grad);color:#03110b;border:none">
           <p style="font-family:var(--font-mono);font-size:.8rem;opacity:.8">status: available</p>
@@ -921,8 +1070,7 @@
         <!-- [EDIT:LINKS] -->
         <div class="foot-social">
           <a href="https://www.linkedin.com/in/mudassor/" target="_blank" rel="noopener" aria-label="LinkedIn"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M4.98 3.5A2.5 2.5 0 1 1 0 3.5a2.5 2.5 0 0 1 4.98 0zM.5 8h4V24h-4zM8 8h3.8v2.2h.05c.53-1 1.83-2.2 3.77-2.2 4 0 4.75 2.65 4.75 6.1V24h-4v-7c0-1.67-.03-3.8-2.3-3.8-2.3 0-2.65 1.8-2.65 3.68V24H8z"/></svg></a>
-          <a href="#" target="_blank" rel="noopener" aria-label="Fiverr"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 7v10M8 12h8" stroke="currentColor" stroke-width="2" fill="none"/></svg></a>
-          <a href="#" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
+          <a href="https://github.com/Mudassor-Ahmed-Chowdhury" target="_blank" rel="noopener" aria-label="GitHub"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.58 2 12.25c0 4.53 2.87 8.37 6.84 9.73.5.1.68-.22.68-.49v-1.7c-2.78.62-3.37-1.37-3.37-1.37-.45-1.18-1.11-1.5-1.11-1.5-.91-.64.07-.62.07-.62 1 .07 1.53 1.06 1.53 1.06.9 1.57 2.36 1.12 2.94.86.09-.67.35-1.12.63-1.38-2.22-.26-4.55-1.14-4.55-5.06 0-1.12.39-2.03 1.03-2.75-.1-.26-.45-1.3.1-2.7 0 0 .84-.28 2.75 1.05a9.4 9.4 0 0 1 5 0c1.91-1.33 2.75-1.05 2.75-1.05.55 1.4.2 2.44.1 2.7.64.72 1.03 1.63 1.03 2.75 0 3.93-2.34 4.8-4.57 5.05.36.32.68.94.68 1.9v2.82c0 .27.18.6.69.49A10.26 10.26 0 0 0 22 12.25C22 6.58 17.52 2 12 2z"/></svg></a>
         </div>
       </div>
       <div>
@@ -931,7 +1079,7 @@
       </div>
       <div>
         <h5>More</h5>
-        <a href="#certifications">Certifications</a><a href="#publications">Publications</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
+        <a href="#certifications">Certifications</a><a href="#publications">Publications</a><a href="#community">Community</a><a href="#faq">FAQ</a><a href="#contact">Contact</a>
       </div>
     </div>
     <div class="foot-bottom">
@@ -990,7 +1138,7 @@
   Array.prototype.forEach.call(document.querySelectorAll('.sheet-link'),function(a){a.addEventListener('click',closeSheet)});
 
   /* ---------- TYPING ROLES ---------- */
-  var roles=['SQA Freelancer','Manual QA Engineer','API Tester','Web Application Tester'];
+  var roles=['SQA Engineer','Manual QA Engineer','API Tester (Postman)','Automation Tester — Selenium & Playwright'];
   var el=document.getElementById('typed'),ri=0,ci=0,del=false;
   var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion:reduce)').matches;
   if(reduce){el.textContent=roles[0];}
@@ -1054,7 +1202,7 @@
     if(!m){setErr('message',true);ok=false}else setErr('message',false);
     if(!ok)return;
     // no-backend fallback: open the visitor's mail client (change to Formspree — see comment above)
-    var to='your.email@example.com'; // [EDIT:LINKS] your email
+    var to='Amudassor@gmail.com'; // [EDIT:LINKS] your email
     var body=encodeURIComponent('Name: '+n+'\nEmail: '+em+'\n\n'+m);
     window.location.href='mailto:'+to+'?subject='+encodeURIComponent(s)+'&body='+body;
     toast.classList.add('show');

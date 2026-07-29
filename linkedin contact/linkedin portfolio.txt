@@ -1,0 +1,7 @@
+| Name           | Email                                                       | Contact Number | LinkedIn Profile                                                               |
+| -------------- | ----------------------------------------------------------- | -------------- | ------------------------------------------------------------------------------ |
+| **Anamul**     | [ahfahad118@gmail.com](mailto:ahfahad118@gmail.com)         | —              | [https://linkedin.com/in/devanamul](https://linkedin.com/in/devanamul)         |
+| **Ruhul Amin** | [shapon.ite@gmail.com](mailto:shapon.ite@gmail.com)         | +8801722117278 | [https://linkedin.com/in/ruhulaminkhan](https://linkedin.com/in/ruhulaminkhan) |
+| **Mushfiqur**  | [mushfiqur.real@gmail.com](mailto:mushfiqur.real@gmail.com) | +8801714218217 | [https://linkedin.com/in/mushfiqur-bd](https://linkedin.com/in/mushfiqur-bd)   |
+| **Nasim**      | [nasimrana69@gmail.com](mailto:nasimrana69@gmail.com)       | —              | [https://linkedin.com/in/nasim1725](https://linkedin.com/in/nasim1725)         |
+| **Faysal**     | [faysal.fpz@gmail.com](mailto:faysal.fpz@gmail.com)         | +8801737527348 | [https://linkedin.com/in/iamfaysal](https://linkedin.com/in/iamfaysal)         |
