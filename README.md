@@ -1,92 +1,78 @@
 # Mudassor Ahmed Chowdhury — SQA Portfolio
 
-A fast, fully responsive personal portfolio website for a **Software Quality Assurance (SQA) freelancer** — specializing in manual QA, API testing, and web application testing.
+A fully responsive personal portfolio website for a **Software Quality Assurance (SQA) freelancer** — specializing in manual QA, API testing, and web application testing.
 
-Built as a single, self-contained HTML file. No build step, no dependencies — just open and host.
+Built with **React + TypeScript + Vite + Tailwind CSS + shadcn/ui**. One continuous scrolling page (no hidden tabs) with a sticky, scroll-spy nav, animated stat counters, skeleton loading states, and a dark/light theme toggle.
 
-> **Live site:** _add your GitHub Pages / Netlify URL here_ &nbsp;·&nbsp; **LinkedIn:** [in/mudassor](https://www.linkedin.com/in/mudassor/)
+> **Live site:** _add your Vercel / Netlify / GitHub Pages URL here_ &nbsp;·&nbsp; **LinkedIn:** [in/mudassor](https://www.linkedin.com/in/mudassor/)
+
+A legacy, dependency-free single-HTML-file version of this site is kept at [`portfolio.html`](portfolio.html) for reference — it's independent of the app described below and isn't part of the build.
 
 ---
 
 ## ✨ Features
 
-- **Fully responsive** — works from 320px mobile up to ultrawide desktops, no horizontal scroll
-- **Dark / light mode** with system detection and saved preference
-- **Smooth animations** — scroll reveals, typing role text, animated counters (respects reduced-motion)
-- **Complete sections** — Hero, About, Skills, Services, Projects (with Solo / Contributions filter), Testing Process, Work Experience timeline, Certifications, Publications, Testimonials, FAQ, Contact
-- **Working contact form** with client-side validation (opens the visitor's email app; upgradeable to Formspree)
-- **SEO-ready** — meta tags, Open Graph, Twitter cards, and Schema.org Person JSON-LD
-- **Accessible** — semantic HTML, keyboard focus states, ARIA labels, alt text
+- **One scrolling page, 8 sections** — Overview, About, Skills, Services, Projects (Solo / Contributions filter), Experience & Certifications, Publications, Testimonials
+- **Sticky nav with scroll-spy** — the active section highlights as you scroll; nav links and the Overview's teaser cards smooth-scroll to their section (no hidden/tabbed views)
+- **Dark / light mode** with saved preference (`localStorage`)
+- **Skeleton loading** (shadcn/ui `Skeleton`) — card-shaped placeholders on first mount, plus per-image skeletons that fade to the real photo once it loads
+- **Animated stat counters**, triggered once the metrics row scrolls into view
+- **Fully responsive** — mobile-first Tailwind layout, no horizontal scroll
+- **Consistent card design** — every card (skills, services, projects, publications, testimonials, certification) shares the same title/icon/badge alignment via one shared component
 
 ---
 
 ## 🛠️ Tech
 
-Intentionally dependency-free. Everything lives in one file:
-
 | Concern | Implementation |
 |---|---|
-| Structure & interactivity | HTML + vanilla JavaScript |
-| Styling | Hand-written CSS with design tokens (CSS variables) |
-| Icons | Inline SVG |
-| Animations | CSS + IntersectionObserver |
-| Theme toggle | `localStorage` + `data-theme` attribute |
+| Framework | React 19 + TypeScript, built with Vite |
+| Styling | Tailwind CSS v4 (CSS-variable design tokens for both themes) |
+| Components | shadcn/ui (Card, Button, Badge, Skeleton, Tabs, Avatar, Separator) |
+| Icons | [lucide-react](https://lucide.dev/) |
+| Theme toggle | React context + `localStorage`, class-based Tailwind dark mode |
 | Fonts | Space Grotesk, Inter, JetBrains Mono (Google Fonts) |
-
-No frameworks, no npm install, no build — which makes it trivial to host anywhere.
 
 ---
 
 ## 🚀 Run locally
 
-**Option 1 — Live Server (recommended)**
-1. Open the folder in VS Code
-2. Install the **Live Server** extension
-3. Right-click `index.html` → **Open with Live Server**
-4. Edit and save — the browser auto-refreshes
+Requires [Node.js](https://nodejs.org/) 20+.
 
-**Option 2 — Just open it**
-Double-click `index.html` to open it in any browser. (Live Server is nicer for editing because of auto-refresh.)
+```bash
+npm install       # install dependencies
+npm run dev       # start the dev server (with hot reload)
+npm run build     # type-check and build for production into dist/
+npm run preview   # locally preview the production build
+```
 
 ---
 
 ## ✏️ Customize
 
-Search the file for `[EDIT:...]` markers to jump to each editable area:
+All content lives in typed data files under [`src/data/`](src/data/) — edit these instead of the components:
 
-| Marker | What to change |
+| File | What it holds |
 |---|---|
-| `[EDIT:LINKS]` | Email, Fiverr, GitHub, live URL |
-| `[EDIT:HERO]` | Name, tagline, intro, photo |
-| `[EDIT:STATS]` | Achievement counters |
-| `[EDIT:EXPERIENCE]` | Work history timeline |
-| `[EDIT:PROJECTS]` | Project cards (set `data-cat="solo"` or `"contrib"`) |
-| `[EDIT:CERTS]` | Vendor certifications |
-| `[EDIT:PUBS]` | Publications & guides |
-| `[EDIT:TESTIMONIALS]` | Real client reviews (samples included — replace before publishing) |
-| `[EDIT:CONTACT]` | Where the contact form sends |
+| `nav.ts` | Section ids and nav labels |
+| `stats.ts` | The four hero metric tiles |
+| `about.ts` | Bio paragraphs, testing philosophy quote, education line, "what I bring" checklist |
+| `skills.ts` | Skill groups and their tags |
+| `services.ts` | Service cards (icon, title, description) |
+| `projects.ts` | Project cards (Solo QA / Contributions) |
+| `experience.ts` | Work history timeline + certification |
+| `publications.ts` | Publications & guides |
+| `testimonials.ts` | Recommendations (quote, name, role, photo) |
 
-### Adding images
-Keep images in an `images/` folder next to `index.html`, then reference them like:
-```html
-<img src="images/profile.png" alt="Mudassor Ahmed Chowdhury">
-```
-Filenames are **case-sensitive** when hosted. Compress large images (e.g. via tinypng.com) to keep the site fast.
+Images and documents live in [`public/`](public/) — reference them with a root-relative path (e.g. `/images/testimonials/name.png`).
+
+**Resume:** the hero's "Download résumé" button links to `/resume.pdf`, but no resume file has been added yet — drop a real `resume.pdf` into `public/` to make that link work.
 
 ---
 
 ## 🌐 Deploy
 
-**GitHub Pages**
-1. Push this repo to GitHub
-2. **Settings → Pages → Deploy from a branch**
-3. Branch: `main`, folder: `/ (root)` → **Save**
-4. Your site goes live at `https://<username>.github.io/<repo>/`
-
-Make sure the main file is named exactly **`index.html`** in the repo root.
-
-**Netlify**
-Drag the project folder onto [app.netlify.com/drop](https://app.netlify.com/drop) for an instant URL.
+`npm run build` outputs a static site to `dist/`. That folder deploys with zero extra config to **Vercel** or **Netlify** (both auto-detect Vite). For **GitHub Pages**, you'll additionally need to set a `base` path in `vite.config.ts` matching your repo name (unless deploying to a custom domain / user page).
 
 ---
 
@@ -94,7 +80,7 @@ Drag the project folder onto [app.netlify.com/drop](https://app.netlify.com/drop
 
 - **LinkedIn:** [linkedin.com/in/mudassor](https://www.linkedin.com/in/mudassor/)
 - **Fiverr:** _add your gig link_
-- **Email:** _add your email_
+- **Email:** Amudassor@gmail.com
 
 ---
 
