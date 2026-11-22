@@ -25,7 +25,19 @@ export function useScrollSpy(sectionIds: string[]) {
     )
 
     elements.forEach((el) => observer.observe(el))
-    return () => observer.disconnect()
+
+    // The last section is often too short to reach the observer's middle band,
+    // so force it active once the page is scrolled to the bottom.
+    const onScroll = () => {
+      const atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4
+      if (atBottom) setActiveId(elements[elements.length - 1].id)
+    }
+    window.addEventListener('scroll', onScroll, { passive: true })
+
+    return () => {
+      observer.disconnect()
+      window.removeEventListener('scroll', onScroll)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [key])
 
