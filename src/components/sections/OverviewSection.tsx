@@ -5,6 +5,7 @@ import { buttonVariants } from '@/components/ui/button'
 import { CardSkeleton } from '@/components/shared/CardSkeleton'
 import { ImageWithSkeleton } from '@/components/shared/ImageWithSkeleton'
 import { MetricTile } from '@/components/shared/MetricTile'
+import { HireMeDialog } from '@/components/shared/HireMeDialog'
 import { Skeleton } from '@/components/ui/skeleton'
 import { useInView } from '@/hooks/useInView'
 import { STATS } from '@/data/stats'
@@ -44,14 +45,15 @@ export function OverviewSection({ isLoading }: { isLoading: boolean }) {
             Diagnostics, POS, HRMS, Loan Management and EdTech.
           </p>
           <div className="mt-5 flex flex-wrap gap-2.5">
-            <a href="mailto:Amudassor@gmail.com" className={buttonVariants({ variant: 'default' })}>
-              Hire me <ArrowRight className="size-4" />
-            </a>
+            <HireMeDialog>
+              {(open) => (
+                <button type="button" onClick={open} className={buttonVariants({ variant: 'default' })}>
+                  Hire me <ArrowRight className="size-4" />
+                </button>
+              )}
+            </HireMeDialog>
             <a href="#projects" className={buttonVariants({ variant: 'outline' })}>
               View work
-            </a>
-            <a href="/resume.pdf" download className={buttonVariants({ variant: 'outline' })}>
-              Download résumé
             </a>
           </div>
         </div>

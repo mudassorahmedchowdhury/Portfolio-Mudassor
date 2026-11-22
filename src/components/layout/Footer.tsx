@@ -46,7 +46,7 @@ export function Footer() {
             <LinkedInIcon />
           </a>
           <a
-            href="https://github.com/Mudassor-Ahmed-Chowdhury"
+            href="https://github.com/mudassorahmedchowdhury"
             target="_blank"
             rel="noopener"
             aria-label="GitHub"

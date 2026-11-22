@@ -3,6 +3,7 @@ import { useScrollSpy } from '@/hooks/useScrollSpy'
 import { Container } from '@/components/layout/Container'
 import { ThemeToggle } from '@/components/layout/ThemeToggle'
 import { buttonVariants } from '@/components/ui/button'
+import { HireMeDialog } from '@/components/shared/HireMeDialog'
 import { cn } from '@/lib/utils'
 
 const SECTION_IDS = NAV_SECTIONS.map((section) => section.id)
@@ -26,6 +27,13 @@ export function Navbar() {
             <a
               key={section.id}
               href={`#${section.id}`}
+              aria-current={activeId === section.id ? 'true' : undefined}
+              ref={(el) => {
+                // keep the active pill visible in the horizontally scrolling mobile nav
+                if (el && activeId === section.id) {
+                  el.scrollIntoView({ block: 'nearest', inline: 'nearest' })
+                }
+              }}
               className={cn(
                 'shrink-0 rounded-full px-3 py-1.5 text-sm transition-colors',
                 activeId === section.id
@@ -40,9 +48,13 @@ export function Navbar() {
 
         <div className="flex shrink-0 items-center gap-2">
           <ThemeToggle />
-          <a href="mailto:Amudassor@gmail.com" className={buttonVariants({ variant: 'default' })}>
-            Hire me
-          </a>
+          <HireMeDialog>
+            {(open) => (
+              <button type="button" onClick={open} className={buttonVariants({ variant: 'default' })}>
+                Hire me
+              </button>
+            )}
+          </HireMeDialog>
         </div>
       </Container>
     </header>
